@@ -1,6 +1,6 @@
-package io.ticket.api.sample;
+package io.ticket.ticket.sample;
 
-import io.ticket.api.echo.EchoApiService;
+import io.ticket.ticket.echo.EchoExternalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class SampleApiController {
 
-  private final EchoApiService echoApiService;
+  private final EchoExternalService echoExternalService;
 
   @GetMapping("/ping")
   public String ping() {
-    return echoApiService.ping();
+    return echoExternalService.ping();
   }
 }

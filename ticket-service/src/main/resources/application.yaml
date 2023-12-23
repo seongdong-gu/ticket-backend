@@ -1,6 +1,6 @@
 spring:
   application:
-    name: echo-api
+    name: ticket-service
 eureka:
   client:
     serviceUrl:

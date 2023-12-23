@@ -1,4 +1,4 @@
-package io.ticket.api.sample;
+package io.ticket.ticket.sample;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 

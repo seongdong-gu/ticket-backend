@@ -1,4 +1,4 @@
-package io.ticket.api;
+package io.ticket.echo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

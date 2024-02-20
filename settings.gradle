@@ -1,3 +1,3 @@
 rootProject.name = 'api'
 
-include("echo-service", "ticket-service", "discovery-service", "gateway-service")
+include("echo-service", "ticket-service", "discovery-service", "gateway-service", "account-service")

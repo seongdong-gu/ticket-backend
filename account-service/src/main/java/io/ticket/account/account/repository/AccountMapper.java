@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface AccountMapper {
 
+  boolean existsByUsername(String username);
+
   Account selectAccountByUsername(String username);
 
   void insertAccount(Account account);

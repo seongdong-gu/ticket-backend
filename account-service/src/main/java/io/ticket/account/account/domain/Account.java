@@ -32,4 +32,8 @@ public class Account {
     this.updatedAt = updatedAt;
     this.deletedAt = deletedAt;
   }
+
+  public static Account of(String usernmae, String password, LocalDateTime joinedAt) {
+    return new Account(null, usernmae, password, joinedAt, joinedAt, null);
+  }
 }

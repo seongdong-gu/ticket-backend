@@ -7,6 +7,14 @@
         WHERE username = #{username}
     </select>
 
+    <select id="existsByUsername" resultType="java.lang.Boolean">
+        SELECT EXISTS (
+            SELECT 1
+            FROM account
+            WHERE username = #{username} AND deleted_at IS NULL
+        )
+    </select>
+
     <insert id="insertAccount" parameterType="io.ticket.account.account.domain.Account">
         INSERT INTO account (id, password, username, created_at, updated_at, deleted_at)
         VALUES (default, #{password}, #{usernmae}, #{createdAt}, #{updatedAt}, NULL)

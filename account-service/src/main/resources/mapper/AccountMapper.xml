@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.ticket.account.account.repository.AccountMapper">
+    <select id="selectAccountByUsername" resultType="io.ticket.account.account.domain.Account">
+        SELECT id, username, password, created_at, updated_at, deleted_at
+        FROM account
+        WHERE username = #{username}
+    </select>
+
+    <insert id="insertAccount" parameterType="io.ticket.account.account.domain.Account">
+        INSERT INTO account (id, password, username, created_at, updated_at, deleted_at)
+        VALUES (default, #{password}, #{usernmae}, #{createdAt}, #{updatedAt}, NULL)
+    </insert>
+</mapper>

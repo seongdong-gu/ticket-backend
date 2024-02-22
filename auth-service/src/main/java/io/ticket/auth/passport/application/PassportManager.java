@@ -18,7 +18,7 @@ public class PassportManager {
   }
 
   public long extractIdentity(final String token) {
-    if (Objects.isNull(token) || jsonWebTokenUtility.validateToken(token)) {
+    if (Objects.isNull(token) || !jsonWebTokenUtility.validateToken(token)) {
       throw new IllegalArgumentException("Invalid token");
     }
 

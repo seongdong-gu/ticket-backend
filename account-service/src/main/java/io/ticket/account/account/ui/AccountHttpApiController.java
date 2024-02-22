@@ -1,8 +1,11 @@
 package io.ticket.account.account.ui;
 
 import io.ticket.account.account.application.AccountService;
+import io.ticket.account.account.ui.schema.AccountAuthenticateRequest;
+import io.ticket.account.account.ui.schema.AccountAuthenticateResponse;
 import io.ticket.account.account.ui.schema.AccountCreateRequest;
 import io.ticket.account.account.ui.schema.AccountCreateResponse;
+import io.ticket.common.schema.HttpApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -21,9 +24,17 @@ public class AccountHttpApiController {
     this.accountService = accountService;
   }
 
+  @PostMapping("/authenticate")
+  public ResponseEntity<HttpApiResponse<AccountAuthenticateResponse>> authenticate(
+      @RequestBody @Validated AccountAuthenticateRequest request) {
+    return ResponseEntity.status(HttpStatus.CREATED)
+        .body(HttpApiResponse.ok(accountService.authenticate(request)));
+  }
+
   @PostMapping
-  public ResponseEntity<AccountCreateResponse> createAccount(
+  public ResponseEntity<HttpApiResponse<AccountCreateResponse>> createAccount(
       @RequestBody @Validated AccountCreateRequest request) {
-    return ResponseEntity.status(HttpStatus.CREATED).body(accountService.createAccount(request));
+    return ResponseEntity.status(HttpStatus.OK)
+        .body(HttpApiResponse.ok(accountService.createAccount(request)));
   }
 }

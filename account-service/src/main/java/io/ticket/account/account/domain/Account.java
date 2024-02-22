@@ -1,6 +1,7 @@
 package io.ticket.account.account.domain;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import lombok.Getter;
 
 @Getter
@@ -33,7 +34,16 @@ public class Account {
     this.deletedAt = deletedAt;
   }
 
-  public static Account of(String usernmae, String password, LocalDateTime joinedAt) {
+  public static Account of(
+      final String usernmae, final String password, final LocalDateTime joinedAt) {
     return new Account(null, usernmae, password, joinedAt, joinedAt, null);
+  }
+
+  public boolean matchPassword(final String password) {
+    if (Objects.isNull(this.password) || Objects.isNull(password)) {
+      return false;
+    }
+
+    return this.password.equals(password);
   }
 }

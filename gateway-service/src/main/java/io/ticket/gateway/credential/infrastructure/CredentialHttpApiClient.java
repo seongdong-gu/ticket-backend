@@ -1,31 +1,32 @@
-package io.ticket.auth.account.infrastructure;
+package io.ticket.gateway.credential.infrastructure;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.ticket.auth.account.infrastructure.dto.AuthenticateRequest;
-import io.ticket.auth.account.infrastructure.dto.AuthenticateResponse;
 import io.ticket.common.schema.HttpApiResponse;
+import io.ticket.gateway.credential.infrastructure.dto.PassportRequest;
+import io.ticket.gateway.credential.infrastructure.dto.PassportResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @Component
-public class AccountApiClient {
+public class CredentialHttpApiClient {
 
   private final WebClient.Builder webClient;
 
   private final ObjectMapper objectMapper;
 
-  public AccountApiClient(final WebClient.Builder webClient, final ObjectMapper objectMapper) {
+  public CredentialHttpApiClient(
+      final WebClient.Builder webClient, final ObjectMapper objectMapper) {
     this.webClient = webClient;
     this.objectMapper = objectMapper;
   }
 
-  public Mono<AuthenticateResponse> authenticate(final AuthenticateRequest request) {
+  public Mono<PassportResponse> getIdentity(final PassportRequest request) {
     return webClient
         .build()
         .post()
-        .uri("http://ACCOUNT-SERVICE/api/v1/accounts/authenticate")
+        .uri("http://AUTH-SERVICE/api/v1/auth/passport")
         .bodyValue(request)
         .retrieve()
         .bodyToMono(HttpApiResponse.class)
@@ -33,8 +34,8 @@ public class AccountApiClient {
             (spec, sink) -> {
               final Object data = spec.data();
               if (spec.status() == HttpStatus.OK.value()) {
-                final AuthenticateResponse response =
-                    objectMapper.convertValue(data, AuthenticateResponse.class);
+                final PassportResponse response =
+                    objectMapper.convertValue(data, PassportResponse.class);
                 sink.next(response);
                 return;
               }

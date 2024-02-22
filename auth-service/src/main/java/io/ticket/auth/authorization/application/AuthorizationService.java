@@ -1,6 +1,8 @@
 package io.ticket.auth.authorization.application;
 
 import io.ticket.auth.account.application.AccountService;
+import io.ticket.auth.account.application.dto.AuthenticateResult;
+import io.ticket.auth.authorization.ui.schema.PassportAuthenticateResponse;
 import io.ticket.auth.authorization.ui.schema.PasswordAuthenticateResponse;
 import io.ticket.auth.passport.application.PassportManager;
 import org.springframework.stereotype.Service;
@@ -23,15 +25,13 @@ public class AuthorizationService {
       final String username, final String password) {
     return accountService
         .authenticate(username, password)
-        .handle(
-            (result, sink) -> {
-              if (!result.authenticated()) {
-                sink.error(new IllegalStateException("Invalid credentials"));
-                return;
-              }
+        .map(AuthenticateResult::identity)
+        .map(
+            identity ->
+                new PasswordAuthenticateResponse(passportManager.issuePassportToken(identity)));
+  }
 
-              final String passport = passportManager.issuePassportToken(result.identity());
-              sink.next(new PasswordAuthenticateResponse(passport));
-            });
+  public Mono<PassportAuthenticateResponse> extractIdentityFromToken(final String token) {
+    return Mono.just(new PassportAuthenticateResponse(passportManager.extractIdentity(token)));
   }
 }

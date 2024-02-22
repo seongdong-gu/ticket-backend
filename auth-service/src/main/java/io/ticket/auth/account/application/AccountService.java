@@ -23,6 +23,6 @@ public class AccountService {
   }
 
   private AuthenticateResult mapAuthenticateResponse(final AuthenticateResponse response) {
-    return new AuthenticateResult(response.identity(), response.authenticated());
+    return new AuthenticateResult(response.identity());
   }
 }

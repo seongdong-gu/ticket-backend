@@ -1,3 +1,3 @@
 package io.ticket.auth.account.application.dto;
 
-public record AuthenticateResult(long identity, boolean authenticated) {}
+public record AuthenticateResult(long identity) {}

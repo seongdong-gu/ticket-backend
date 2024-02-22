@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/api/v1/auth/password")
-public class AuthorizationHttpApiController {
+@RequestMapping("/api/v1/auth")
+public class CredentialHttpApiController {
 
   private final AuthorizationService authorizationService;
 
-  public AuthorizationHttpApiController(final AuthorizationService authorizationService) {
+  public CredentialHttpApiController(final AuthorizationService authorizationService) {
     this.authorizationService = authorizationService;
   }
 

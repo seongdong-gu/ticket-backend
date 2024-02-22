@@ -2,6 +2,7 @@ package io.ticket.auth.authorization.application;
 
 import io.ticket.auth.account.application.AccountService;
 import io.ticket.auth.account.application.dto.AuthenticateResult;
+import io.ticket.auth.authorization.ui.schema.PassportAuthenticateResponse;
 import io.ticket.auth.authorization.ui.schema.PasswordAuthenticateResponse;
 import io.ticket.auth.passport.application.PassportManager;
 import org.springframework.stereotype.Service;
@@ -28,5 +29,9 @@ public class AuthorizationService {
         .map(
             identity ->
                 new PasswordAuthenticateResponse(passportManager.issuePassportToken(identity)));
+  }
+
+  public Mono<PassportAuthenticateResponse> extractIdentityFromToken(final String token) {
+    return Mono.just(new PassportAuthenticateResponse(passportManager.extractIdentity(token)));
   }
 }

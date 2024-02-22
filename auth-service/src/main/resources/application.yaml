@@ -9,7 +9,8 @@ eureka:
     prefer-ip-address: true
 server:
   port: 0
+
 app:
   jwt:
-    secret: ${JWT_SECRET}
-    tokenExpirationMsec: ${JWT_EXPIRATION}
+    secret: c10y7kWL8r5BXgmRK1H1BylY6Ne90wcIITPUnRNye83NNl0NwSJ9v2qJuXqztzse
+    tokenExpirationMsec: 86400000

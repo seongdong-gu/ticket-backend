@@ -2,6 +2,8 @@ package io.ticket.account.account.application;
 
 import io.ticket.account.account.domain.Account;
 import io.ticket.account.account.repository.AccountMapper;
+import io.ticket.account.account.ui.schema.AccountAuthenticateRequest;
+import io.ticket.account.account.ui.schema.AccountAuthenticateResponse;
 import io.ticket.account.account.ui.schema.AccountCreateRequest;
 import io.ticket.account.account.ui.schema.AccountCreateResponse;
 import java.time.LocalDateTime;
@@ -30,5 +32,18 @@ public class AccountService {
 
     final Account account = accountMapper.selectAccountByUsername(request.username());
     return new AccountCreateResponse(account.getId());
+  }
+
+  public AccountAuthenticateResponse authenticate(final AccountAuthenticateRequest request) {
+    if (!accountMapper.existsByUsername(request.username())) {
+      throw new IllegalArgumentException("Username is not exists");
+    }
+
+    final Account account = accountMapper.selectAccountByUsername(request.username());
+    if (!account.matchPassword(request.password())) {
+      throw new IllegalArgumentException("Invalid password");
+    }
+
+    return new AccountAuthenticateResponse(account.getId());
   }
 }
